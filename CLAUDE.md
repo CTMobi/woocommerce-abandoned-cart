@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Plugin Overview
 
-**Abandoned Cart Lite for WooCommerce** (v6.7.0) by Tyche Softwares. Tracks abandoned WooCommerce carts and sends automated recovery emails via WP-Cron / Action Scheduler.
+**Abandoned Cart Lite for WooCommerce** by Tyche Softwares. Tracks abandoned WooCommerce carts and sends automated recovery emails via WP-Cron / Action Scheduler.
 
 - Requires: PHP 7.4+, WordPress 6.3+, WooCommerce 4.0+
 - Text domain: `woocommerce-abandoned-cart`
@@ -53,6 +53,8 @@ Key rules from `tyche-phpcs.xml`:
 ### Core Database Tables
 - `{prefix}ac_abandoned_cart_history_lite` — abandoned cart records (registered + guest users)
 - `{prefix}ac_email_templates_lite` — reminder email templates
+- `{prefix}ac_sent_history_lite` — history of reminder emails sent
+- `{prefix}ac_guest_abandoned_cart_history_lite` — guest user data captured at checkout
 
 ### Key WordPress Options
 - `ac_lite_cart_abandoned_time` — cart cut-off time in minutes
@@ -120,9 +122,9 @@ New features must be branched off `staging`, unless explicitly instructed otherw
 ## PR Requirements (Dangerfile)
 
 All PRs must:
-- Have a description body (>2 chars)
+- Have a description body (at least 2 characters)
 - Be assigned to an assignee and reviewer
 - Be assigned to a milestone
-- Reference an issue number: `Fix #<number>` in the PR body
-- Follow `commit_lint` conventions (no TODO items left in diff)
+- Reference an issue by including `fix #` in the PR body (case-insensitive, e.g. `Fix #123`)
+- Aim to follow `commit_lint` conventions; `todoist` will warn if TODO items are left in the diff
 - Not contain `do-not-scan` (skipping PHPCS scan is disallowed)
