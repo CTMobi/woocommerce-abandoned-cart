@@ -1,4 +1,4 @@
-# Do not change version. This is the version of aws buildspec, not the version of your buldspec file.
+# Do not change version. This is the version of aws buildspec, not the version of your buildspec file.
 version: 0.2
 
 phases:
@@ -14,8 +14,8 @@ phases:
   post_build:
     commands:
       - rm -Rf node_modules
-      - aws s3 sync ./ s3://devosswordpressconf/osservatoridev/wp-content/plugins/WPPlugin-woocommerce-abandoned-cart --delete
-      - echo Build completed on `date`
+      - aws s3 sync ./ s3://devosswordpressconf/osservatoridev/wp-content/plugins/WPPlugin-woocommerce-abandoned-cart --delete --exclude ".git/*"
+      - echo Build completed on $(date)
 artifacts:
   files:
     - '**/*'
