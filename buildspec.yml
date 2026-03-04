@@ -1,0 +1,22 @@
+# Do not change version. This is the version of aws buildspec, not the version of your buildspec file.
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 22
+    commands:
+      - npm ci
+  build:
+    on-failure: ABORT
+    commands:
+      - npm run build
+  post_build:
+    commands:
+      - rm -Rf node_modules
+      - aws s3 sync ./ s3://osswordpressconf/osservatori/wp-content/plugins/WPPlugin-woocommerce-abandoned-cart --delete --exclude ".git/*"
+      - aws s3 sync ./ s3://osswordpressconf/osservatoristaging/wp-content/plugins/WPPlugin-woocommerce-abandoned-cart --delete --exclude ".git/*"
+      - echo Build completed on $(date)
+artifacts:
+  files:
+    - '**/*'
